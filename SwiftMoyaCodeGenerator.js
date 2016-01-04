@@ -1,4 +1,3 @@
-
 var uri = require('/URI');
 var mustache = require('./mustache');
 var SwiftMoyaCodeGenerator = function() {
@@ -7,10 +6,11 @@ var SwiftMoyaCodeGenerator = function() {
 
         var template = readFile("moya.mustache");
 
-        var url = uri.parse(context.getCurrentRequest().url);
+        var request = context.getCurrentRequest();
+        var url = uri.parse(request.url);
 
         var view = {
-          "request": context.getCurrentRequest(),
+          "request": request,
           "baseURL": url.protocol + "://" + url.hostname,
           "pathExtension": url.path,
         };
@@ -19,13 +19,13 @@ var SwiftMoyaCodeGenerator = function() {
         if (query) {
           var fragments = query.split('&');
           var keyvalue = fragments[0].split('=');
-          var queryParamsType = isNumber(keyvalue[1]) ? "Int" : "String";
+          var queryParamsType = keyvalue[0] + ": " + (isNumber(keyvalue[1]) ? "Int" : "String");
           var queryParamsTemplate = "_";
           var queryParams = "let " + keyvalue[0];
           var queryDictString = "\"" + keyvalue[0] + "\": " + keyvalue[0]
           for (var i = 1; i < fragments.length; i++) {
-              var keyvalue = fragments[i].split('=');
-              queryParamsType += isNumber(keyvalue[1]) ? ", Int" : ", String";
+              keyvalue = fragments[i].split('=');
+              queryParamsType += ", " + keyvalue[0] + ": " + (isNumber(keyvalue[1]) ? "Int" : "String");
               queryParamsTemplate += ", _";
               queryParams += ", let " + keyvalue[0];
               queryDictString += ", \"" + keyvalue[0] + "\": " + keyvalue[0];
@@ -36,7 +36,6 @@ var SwiftMoyaCodeGenerator = function() {
           view["queryParams"] = queryParams;
           view["queryDictString"] = queryDictString;
         }
-
 
         return mustache.render(template, view);
     }

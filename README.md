@@ -13,6 +13,10 @@ Copyright © 2015 Łukasz Kuczborski.
 * [Mustache.js](https://github.com/janl/mustache.js/), also released under the MIT License
 * [URI.js](http://medialize.github.io/URI.js/), also released under the MIT License
 
+### Features
+* Parsing query params
+* Parsing key-value object provided as JSON Body
+* Type matching for params (`String` or `Int` based on param data provided in PAW, e.g. id = 2 will generate `let id: Int`)
 
 ### TODO
-Still lots to be done... This is an early prototype and a work in progress. Started adding some issues, so if you feel like contributing you are more than welcome 🍻 (I will try to merge PR's as soon as possible :smile:)
+Still lots to be done... See issues for a good start or write your own. If you feel like contributing you are more than welcome 🍻 (I will try to merge PR's as soon as possible :smile:)

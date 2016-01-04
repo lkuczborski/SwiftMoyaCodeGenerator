@@ -22,7 +22,7 @@ var SwiftMoyaCodeGenerator = function() {
             var queryParamsType = keyvalue[0] + ": " + typeForObject(keyvalue[1]);
             var queryParamsTemplate = "_";
             var queryParams = "let " + keyvalue[0];
-            var queryDictString = "\"" + keyvalue[0] + "\": " + keyvalue[0]
+            var queryDictString = "\"" + keyvalue[0] + "\": " + keyvalue[0];
             for (var i = 1; i < fragments.length; i++) {
                 keyvalue = fragments[i].split('=');
                 queryParamsType += ", " + keyvalue[0] + ": " + typeForObject(keyvalue[1]);
@@ -36,14 +36,14 @@ var SwiftMoyaCodeGenerator = function() {
             view["queryParams"] = queryParams;
             view["queryDictString"] = queryDictString;
         }
-        
+
         return mustache.render(template, view);
     }
 }
 
-function isNumber(obj) { return !isNaN(parseFloat(obj)) }
+function isNumber(obj) { return !isNaN(parseFloat(obj)); }
 
-function typeForObject(obj) { return (isNumber(obj) ? "Int" : "String") }
+function typeForObject(obj) { return (isNumber(obj) ? "Int" : "String"); }
 
 SwiftMoyaCodeGenerator.identifier = "com.kuczborski.PawExtensions.SwiftMoyaCodeGenerator";
 SwiftMoyaCodeGenerator.title = "Swift (Moya)";

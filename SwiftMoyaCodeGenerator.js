@@ -38,7 +38,7 @@ var SwiftMoyaCodeGenerator = function() {
         }
 
         var jsonBody = request.jsonBody;
-        if (Object.keys(jsonBody).length > 0) {
+        if (jsonBody && Object.keys(jsonBody).length > 0) {
             var firstKey = Object.keys(jsonBody)[0];
             var jsonBodyParamsType = firstKey + ": " + typeForObject(jsonBody[firstKey]);
             var jsonBodyParamsTemplate = "_";

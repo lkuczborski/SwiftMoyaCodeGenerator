@@ -15,4 +15,4 @@ Copyright © 2015 Łukasz Kuczborski.
 
 
 ### TODO
-Still lots to be done... This is a work in progress. So if you feel like contributing you are more then welcome 🍻 I will try to merge PR's as soon as possible :)
+Still lots to be done... This is an early prototype and a work in progress. Started adding some issues, so if you feel like contributing you are more than welcome 🍻 (I will try to merge PR's as soon as possible :smile:)

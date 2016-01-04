@@ -1,7 +1,7 @@
 import Moya
 
 public enum API {
-    case {{{request.name}}}{{#queryParamsType}}({{{queryParamsType}}}){{/queryParamsType}}
+    case {{{request.name}}}{{#queryParamsType}}({{{queryParamsType}}}){{/queryParamsType}}{{#jsonBodyParamsType}}({{{jsonBodyParamsType}}}){{/jsonBodyParamsType}}
 }
 
 extension API: TargetType {
@@ -10,7 +10,7 @@ extension API: TargetType {
 
     public var path: String {
         switch self {
-        case .{{{request.name}}}{{#queryParamsTemplate}}({{{queryParamsTemplate}}}){{/queryParamsTemplate}}:
+        case .{{{request.name}}}{{#queryParamsTemplate}}({{{queryParamsTemplate}}}){{/queryParamsTemplate}}{{#jsonBodyParamsTemplate}}({{{jsonBodyParamsTemplate}}}){{/jsonBodyParamsTemplate}}:
             return "{{{pathExtension}}}"
         }
     }
@@ -25,9 +25,15 @@ extension API: TargetType {
         case .{{{request.name}}}({{{queryParams}}}):
             return {{#queryDictString}}[{{{queryDictString}}}]{{/queryDictString}}
         {{/queryParams}}
+        {{#jsonBodyParams}}
+        case .{{{request.name}}}({{{jsonBodyParams}}}):
+            return {{#jsonBodyDictString}}[{{{jsonBodyDictString}}}]{{/jsonBodyDictString}}
+        {{/jsonBodyParams}}
         {{^queryParams}}
+        {{^jsonBodyParams}}
         default:
             return nil
+        {{/jsonBodyParams}}
         {{/queryParams}}
         }
     }

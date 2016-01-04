@@ -37,6 +37,29 @@ var SwiftMoyaCodeGenerator = function() {
             view["queryDictString"] = queryDictString;
         }
 
+        var jsonBody = request.jsonBody;
+        if (Object.keys(jsonBody).length > 0) {
+            var firstKey = Object.keys(jsonBody)[0];
+            var jsonBodyParamsType = firstKey + ": " + typeForObject(jsonBody[firstKey]);
+            var jsonBodyParamsTemplate = "_";
+            var jsonBodyParams = "let " + firstKey;
+            var jsonBodyDictString = "\"" + firstKey + "\": " + firstKey;
+            for (var i = 1; i < Object.keys(jsonBody).length; i++) {
+                var key = Object.keys(jsonBody)[i];
+                if (jsonBody.hasOwnProperty(key)) {
+                    jsonBodyParamsType += ", " + key + ": " + typeForObject(jsonBody[key]);
+                    jsonBodyParamsTemplate += ", _";
+                    jsonBodyParams += ", let " + key;
+                    jsonBodyDictString += ", \"" + key + "\": " + key;
+                }
+            }
+
+            view["jsonBodyParamsType"] = jsonBodyParamsType;
+            view["jsonBodyParamsTemplate"] = jsonBodyParamsTemplate;
+            view["jsonBodyParams"] = jsonBodyParams;
+            view["jsonBodyDictString"] = jsonBodyDictString;
+        }
+
         return mustache.render(template, view);
     }
 }
